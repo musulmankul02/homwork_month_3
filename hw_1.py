@@ -14,7 +14,7 @@ async def start(message: types.Message):
 async def guess_number(message: types.Message): 
     user_guess = int(message.text) 
     bot_number = random.randint(1, 3) 
- 
+
     if user_guess == bot_number: 
         await message.answer("вы победили!") 
         await message.answer_photo("https://media.makeameme.org/created/you-win-nothing-b744e1771f.jpg") 

@@ -24,7 +24,6 @@ async def hello(message:types.Message):
 async def test(message:types.Message):
     await message.answer_photo('https://th.bing.com/th/id/R.3a2cd96dce88505e89b69962a776cb6f?rik=bPwVOqQoC7KTHQ&riu=http%3a%2f%2fwww.hdcarwallpapers.com%2fwalls%2fmercedes_benz_g_63_amg-HD.jpg&ehk=TPjVGR8GNxD3kqi9jmZQLUeeTnPdubzPNuC1aa7yacE%3d&risl=&pid=ImgRaw&r=0')
     await message.answer_location(40.51936, 72.8027)
-    await message.answer_photo()
 
 @dp.message_handler()
 async def not_found(message:types.Message):
