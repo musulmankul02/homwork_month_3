@@ -36,7 +36,7 @@ def get_html_content(url):
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
-    await message.reply("Привет! Я бот оjak kebab. Какую информацию вы хотите получить?",
+    await message.reply("Привет! Я бот оjak kebap. Какую информацию вы хотите получить?",
                         reply_markup=types.ReplyKeyboardMarkup(resize_keyboard=True).add(
                             types.KeyboardButton("Меню"),
                             types.KeyboardButton("О нас"),
