@@ -2,9 +2,7 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-import logging
-import sqlite3
-import requests
+import logging, sqlite3, requests
 from config import token
 
 logging.basicConfig(level=logging.INFO)
@@ -12,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=token)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
-conn = sqlite3.connect('ojak_kebab.db')
+conn = sqlite3.connect('ojak_kebap.db')
 cursor = conn.cursor()
 
 cursor.execute('''CREATE TABLE IF NOT EXISTS users
@@ -20,12 +18,14 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS users
                    username TEXT,
                    first_name TEXT,
                    last_name TEXT,
-                   date_joined DATE)''')
+                   date_joined DATE);
+               ''')
 conn.commit()
 
 class OrderFoodStates(StatesGroup):
     phone = State()
     address = State()
+    name = State()
 
 def get_html_content(url):
     response = requests.get(url)
@@ -99,18 +99,20 @@ async def process_name_step(message: types.Message, state: FSMContext):
     await message.reply("Теперь введите ваш номер телефона:")
     await OrderFoodStates.next()
 
-
-
-@dp.message_handler(state=OrderFoodStates.phone)
+@dp.message_handler(state=OrderFoodStates.address)
 async def process_phone_step(message: types.Message, state: FSMContext):
     phone = message.text
     await message.reply("Теперь введите ваш адрес доставки:")
     await OrderFoodStates.next()
-@dp.message_handler(state=OrderFoodStates.address)
+
+
+@dp.message_handler(state=OrderFoodStates.name)
 async def process_address_step(message: types.Message, state: FSMContext):
-    address = message.text
-    await message.reply("Спасибо за заказ! Мы свяжемся с вами в ближайшее время.")
+    gig = message.text
+    await message.answer("Спасибо за заказ! Мы свяжемся с вами в ближайшее время.")
     await state.finish()
+
+
 
 @dp.message_handler()
 async def echo(message: types.Message):
