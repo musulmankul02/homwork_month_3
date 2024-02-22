@@ -2,7 +2,6 @@ import logging
 from aiogram import Bot, Dispatcher, types, executor
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from config import token 
 import sqlite3
@@ -10,7 +9,6 @@ import sqlite3
 bot = Bot(token=token)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
-dp.middleware.setup(LoggingMiddleware())
 logging.basicConfig(level=logging.INFO)
 
 # Импорт библиотек и настройка бота
